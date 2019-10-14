@@ -1,5 +1,4 @@
-# ng-canvas-paint
-Cuadro de dibujo canvas
+# NgCanvasPainter
 
 Esta libreria fue generada con [Angular CLI](https://github.com/angular/angular-cli) version 8.2.9.
 

@@ -1,19 +1,19 @@
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'ng-canvas-painter',
+  selector: 'ng-canvas-paint',
   template: `
     <div id="container" class="content" >
-	  <div class="row">
+	  <div class="row center">
 		  <div class="card" [ngStyle]="{'width': width + 'px'}">
 			<div class="card-header">
 			  <div class="row">
-			  <div class="col-md-6 title"><strong>{{title}}</strong></div>
-			  <div  class="col-md-3" style="text-align: right;">
-        <button type="button" class="btn btn-secondary" (click)="refreshCanvas()">{{labelRefreshButton}} <i [ngClass]="iconRefreshButton"></i></button>
+			  <div class="col-md-6 center"><strong>{{title}}</strong></div>
+			  <div  class="col-md-3 center">
+          <button type="button" class="btn btn-sm btn-secondary" (click)="refreshCanvas()">{{labelRefreshButton}} <i [ngClass]="iconRefreshButton"></i></button>
         </div>
-        <div  class="col-md-3" style="text-align: right;">
-				<button type="button" class="btn btn-secondary" (click)="guardarCanvas()">{{labelAcceptButton}} <i [ngClass]="iconAcceptButton"></i></button>
+        <div  class="col-md-3 center">
+				  <button type="button" class="btn btn-sm btn-secondary" (click)="guardarCanvas()">{{labelAcceptButton}} <i [ngClass]="iconAcceptButton"></i></button>
 			  </div>
 			  </div>
 			</div>
@@ -31,9 +31,9 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 		</div>
 	</div>
   `,
-  styleUrls: ['ng-canvas-painter.component.scss']
+  styleUrls: ['ng-canvas-paint.component.scss']
 })
-export class NgCanvasPainterComponent implements AfterViewInit {
+export class NgCanvasPaintComponent implements AfterViewInit {
 
   firma: any;
 

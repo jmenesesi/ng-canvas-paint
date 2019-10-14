@@ -1,7 +1,5 @@
 /*
- * Public API Surface of ng-canvas-painter
+ * Public API Surface of ng-canvas-paint
  */
-
-export * from './lib/ng-canvas-painter.service';
-export * from './lib/ng-canvas-painter.component';
-export * from './lib/ng-canvas-painter.module';
+export * from './lib/ng-canvas-paint.component';
+export * from './lib/ng-canvas-paint.module';
