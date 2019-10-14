@@ -35,7 +35,7 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 })
 export class NgCanvasPaintComponent implements AfterViewInit {
 
-  firma: any;
+  @Input('value') firma: any = undefined;
 
   @Input('title') title: string = "Firmar en el recuadro";
   @Input('width') width = 400;

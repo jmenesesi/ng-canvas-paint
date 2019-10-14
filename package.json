@@ -1,6 +1,14 @@
 {
   "name": "ng-canvas-paint",
-  "version": "0.0.5",
+  "version": "0.0.9",
+  "author": "Juan Manuel Meneses Ibarra <com.jmenesesi@gmail.com> (https://jmenesesi.com)",
+  "keywords": ["Angular", "Canvas", "Painter", "Angular8", "Bootstrap", "jmenesesi"],
+  "license": "(GNU General Public License v3.0)",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jmenesesi/ng-canvas-paint.git"
+  },
   "peerDependencies": {
     "@angular/common": "^8.2.9",
     "@angular/core": "^8.2.9",

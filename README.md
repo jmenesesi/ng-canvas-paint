@@ -27,3 +27,7 @@ Una vez importado, para usarlo en tu componente, puedes usar el siguiente ejempl
         (onAccept)="onAccept($event)" (onRefresh)="onRefresh()">
     </ng-canvas-paint>
 ```
+
+## Github
+
+Puedes consultar el código en el repositorio de [Github](https://github.com/jmenesesi/ng-canvas-paint).
