@@ -48,7 +48,7 @@ export class NgCanvasPaintComponent implements AfterViewInit {
   @Input('labelRefreshButton') labelRefreshButton = "Limpiar";
 
   @Output('onAccept') onAccept = new EventEmitter<string>();
-  @Output('onAccept') onRefresh = new EventEmitter<void>();
+  @Output('onRefresh') onRefresh = new EventEmitter<void>();
 
   constructor() {
   }
