@@ -3,32 +3,24 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 @Component({
   selector: 'ng-canvas-paint',
   template: `
-    <div id="container" class="content" >
-	  <div class="row center">
-		  <div class="card" [ngStyle]="{'width': width + 'px'}">
-			<div class="card-header">
-			  <div class="row">
-			  <div class="col-md-6 center"><strong>{{title}}</strong></div>
-			  <div  class="col-md-3 center">
-          <button type="button" class="btn btn-sm btn-secondary" (click)="refreshCanvas()">{{labelRefreshButton}} <i [ngClass]="iconRefreshButton"></i></button>
+    <div id="container" class="main-container" [ngClass]="containerClass" >
+      <div [ngClass]="headerClass">
+        <p><strong>{{title}}</strong></p>
+        <div class="buttons-container">
+          <button type="button" [ngClass]="cleanBtnClass" (click)="refreshCanvas()"><i [ngClass]="iconCleanButton"></i></button>
+          <button type="button" [ngClass]="confirmBtnClass" (click)="guardarCanvas()"><i [ngClass]="iconAcceptButton"></i></button>
         </div>
-        <div  class="col-md-3 center">
-				  <button type="button" class="btn btn-sm btn-secondary" (click)="guardarCanvas()">{{labelAcceptButton}} <i [ngClass]="iconAcceptButton"></i></button>
-			  </div>
-			  </div>
-			</div>
-			<div class="card-body">
-			  <canvas id="canvasPainterView" [width]="width" [height]="height" *ngIf="!firma">
+      </div>
+			<div id="container-painter" [ngClass]="painterContainerClass">
+        <canvas id="canvasPainterView" class="canvas-painter" *ngIf="!firma">
 				<p>Unfortunately, your browser is currently unsupported by our web application. We are sorry for the
 				  inconvenience. Please use one of the supported browsers listed below, or draw the image you want using an
 				  offline tool.</p>
 				<p>Supported browsers: <a href="http://www.opera.com/">Opera</a>, <a href="http://www.mozilla.com/">Firefox</a>,
 				  <a href="http://www.apple.com/safari">Safari</a>, and <a href="http://www.konqueror.org/">Konqueror</a>.</p>
 			  </canvas>
-			  <img [src]="firma" *ngIf="firma" />
+			  <img class="image-painter" [src]="firma" *ngIf="firma" />
 			</div>
-		  </div>
-		</div>
 	</div>
   `,
   styleUrls: ['ng-canvas-paint.component.scss']
@@ -36,16 +28,16 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 export class NgCanvasPaintComponent implements AfterViewInit {
 
   @Input('value') firma: any = undefined;
-
+  @Input('containerClass') containerClass = '';
+  @Input('headerClass') headerClass = 'options-container';
+  @Input('painterContainerClass') painterContainerClass = 'ng-canvas-container';
+  @Input('confirmBtnClass') confirmBtnClass = 'confirm-button';
+  @Input('cleanBtnClass') cleanBtnClass = 'clean-button';
   @Input('title') title: string = "Firmar en el recuadro";
-  @Input('width') width = 400;
-  @Input('height') height = 300;
   @Input('color') color = "black";
   @Input('backgroundColor') backgroundColor = "white";
   @Input('iconAcceptButton') iconAcceptButton = "fa fa-check";
-  @Input('labelAcceptButton') labelAcceptButton = "Aceptar";
-  @Input('iconRefreshButton') iconRefreshButton = "fa fa-refresh";
-  @Input('labelRefreshButton') labelRefreshButton = "Limpiar";
+  @Input('iconCleanButton') iconCleanButton = "fas fa-redo-alt";
 
   @Output('onAccept') onAccept = new EventEmitter<string>();
   @Output('onRefresh') onRefresh = new EventEmitter<void>();
@@ -75,17 +67,20 @@ export class NgCanvasPaintComponent implements AfterViewInit {
 
 }
 
-var canvas, context, tool, color, background;
+var containerCanvas, canvas, context, tool, color, background, autoSave;
 
 function setColor(lineColor, backgroundColor) {
   color = lineColor;
   background = backgroundColor;
 }
 
-function init() {
+function init(saveAuto = true) {
+  autoSave = saveAuto;
   // Find the canvas element.
-  console.log(color);
   canvas = document.getElementById('canvasPainterView');
+  containerCanvas = document.getElementById("container-painter");
+  canvas.width = containerCanvas.offsetWidth;
+  canvas.height = containerCanvas.offsetHeight;
   if (!canvas) {
     alert('Error: I cannot find the canvas element!');
     return;
@@ -143,6 +138,9 @@ function tool_pencil() {
     if (tool.started) {
       tool.mousemove(ev);
       tool.started = false;
+      if(autoSave) {
+        canvasToImg();
+      }
     }
   };
 }

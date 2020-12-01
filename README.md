@@ -23,8 +23,19 @@ Para hacer uso de la libreria debes importarla en tu `app.module.ts` como en el 
 Una vez importado, para usarlo en tu componente, puedes usar el siguiente ejemplo: 
 
 ```html
-    <ng-canvas-paint width="400" height="300" color="black" backgroundColor="transparent"
-        (onAccept)="onAccept($event)" (onRefresh)="onRefresh()">
+    <ng-canvas-paint 
+        containerClass="yourCustomClass"
+        headerClass="yourCustomClass"
+        painterContainerClass="yourCustomClass"
+        confirmBtnClass="yourCustomClass"
+        cleanBtnClass="yourCustomClass"
+        title="Your title"
+        iconAcceptButton="fa fa-check"
+        iconCleanButton="fas fa-redo-alt"
+        color="black" 
+        backgroundColor="transparent"
+        (onAccept)="onAccept($event)" 
+        (onRefresh)="onRefresh()">
     </ng-canvas-paint>
 ```
 
