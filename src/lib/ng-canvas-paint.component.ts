@@ -12,22 +12,23 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
         </div>
       </div>
 			<div id="container-painter" [ngClass]="painterContainerClass">
-        <canvas id="canvasPainterView" class="canvas-painter" *ngIf="!firma">
+        <canvas id="canvasPainterView" class="canvas-painter" *ngIf="!value">
 				<p>Unfortunately, your browser is currently unsupported by our web application. We are sorry for the
 				  inconvenience. Please use one of the supported browsers listed below, or draw the image you want using an
 				  offline tool.</p>
 				<p>Supported browsers: <a href="http://www.opera.com/">Opera</a>, <a href="http://www.mozilla.com/">Firefox</a>,
 				  <a href="http://www.apple.com/safari">Safari</a>, and <a href="http://www.konqueror.org/">Konqueror</a>.</p>
 			  </canvas>
-			  <img class="image-painter" [src]="firma" *ngIf="firma" />
+			  <img class="image-painter" [src]="value" *ngIf="value" />
 			</div>
 	</div>
   `,
   styleUrls: ['ng-canvas-paint.component.scss']
 })
-export class NgCanvasPaintComponent implements AfterViewInit {
+export class NgCanvasPaintComponent implements OnInit, AfterViewInit {
 
-  @Input('value') firma: any = undefined;
+  @Input('value') value: any = undefined;
+  @Output('value') onValue:EventEmitter<any> = new EventEmitter<any>();
   @Input('containerClass') containerClass = '';
   @Input('headerClass') headerClass = 'options-container';
   @Input('painterContainerClass') painterContainerClass = 'ng-canvas-container';
@@ -45,14 +46,18 @@ export class NgCanvasPaintComponent implements AfterViewInit {
   constructor() {
   }
 
+  ngOnInit() {
+
+  }
+
   ngAfterViewInit() {
     setColor(this.color, this.backgroundColor);
-    init();
+    let time = setTimeout((_) => init(), 100);
   }
 
   refreshCanvas() {
-    if (this.firma)
-      this.firma = undefined;
+    if (this.value)
+      this.value = undefined;
     setTimeout(() => {
       canvasClear();
       init();
@@ -61,8 +66,8 @@ export class NgCanvasPaintComponent implements AfterViewInit {
   }
 
   guardarCanvas() {
-    this.firma = canvasToImg();
-    this.onAccept.emit(this.firma);
+    this.value = canvasToImg();
+    this.onAccept.emit(this.value);
   }
 
 }
