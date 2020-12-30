@@ -1,4 +1,3 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
 .main-container {
     display: flex;
     flex-direction: column;
@@ -75,4 +74,12 @@
     border: none;
     color: #012C5B;
     font-size: 24px;
+}
+
+.icon-clean::before {
+    content: "❌";
+}
+
+.icon-check:before {
+    content: "✔️";
 }

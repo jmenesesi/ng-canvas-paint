@@ -29,6 +29,7 @@ Una vez importado, para usarlo en tu componente, puedes usar el siguiente ejempl
         painterContainerClass="yourCustomClass"
         confirmBtnClass="yourCustomClass"
         cleanBtnClass="yourCustomClass"
+        positionButtons="bottom"
         title="Your title"
         iconAcceptButton="fa fa-check"
         iconCleanButton="fas fa-redo-alt"

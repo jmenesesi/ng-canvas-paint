@@ -6,7 +6,7 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
     <div id="container" class="main-container" [ngClass]="containerClass" >
       <div [ngClass]="headerClass">
         <p><strong>{{title}}</strong></p>
-        <div class="buttons-container">
+        <div class="buttons-container" *ngIf="positionButtons === 'top'">
           <button type="button" [ngClass]="cleanBtnClass" (click)="refreshCanvas()"><i [ngClass]="iconCleanButton"></i></button>
           <button type="button" [ngClass]="confirmBtnClass" (click)="guardarCanvas()"><i [ngClass]="iconAcceptButton"></i></button>
         </div>
@@ -20,7 +20,11 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 				  <a href="http://www.apple.com/safari">Safari</a>, and <a href="http://www.konqueror.org/">Konqueror</a>.</p>
 			  </canvas>
 			  <img class="image-painter" [src]="value" *ngIf="value" />
-			</div>
+      </div>
+      <div class="buttons-container" *ngIf="positionButtons === 'bottom'">
+        <button type="button" [ngClass]="cleanBtnClass" (click)="refreshCanvas()" title="Limpiar recuadro"><i [ngClass]="iconCleanButton"></i></button>
+        <button type="button" [ngClass]="confirmBtnClass" (click)="guardarCanvas()" title="Confirmar firma"><i [ngClass]="iconAcceptButton"></i></button>
+      </div>
 	</div>
   `,
   styleUrls: ['ng-canvas-paint.component.scss']
@@ -37,11 +41,13 @@ export class NgCanvasPaintComponent implements OnInit, AfterViewInit {
   @Input('title') title: string = "Firmar en el recuadro";
   @Input('color') color = "black";
   @Input('backgroundColor') backgroundColor = "white";
-  @Input('iconAcceptButton') iconAcceptButton = "fa fa-check";
-  @Input('iconCleanButton') iconCleanButton = "fas fa-redo-alt";
+  @Input('iconAcceptButton') iconAcceptButton = "icon-check";//"fas fa-check";
+  @Input('iconCleanButton') iconCleanButton = "icon-clean";//"fas fa-redo-alt";
 
   @Output('onAccept') onAccept = new EventEmitter<string>();
   @Output('onRefresh') onRefresh = new EventEmitter<void>();
+
+  @Input('positionButtons')  positionButtons: string = "bottom" || "top";
 
   constructor() {
   }
